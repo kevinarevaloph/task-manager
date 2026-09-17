@@ -1,0 +1,1161 @@
+/* =========================================================
+   PROJECT MANAGEMENT
+   Main Variables & Global Styles
+   ========================================================= */
+
+:root {
+  --pm-orange: #f97316;
+  --pm-navy: #172033;
+  --pm-muted: #6b7280;
+  --pm-bg: #f8fafc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.pm-page {
+  margin: 0;
+  background: var(--pm-bg);
+  font-family: Poppins, Arial, sans-serif;
+  color: var(--pm-navy);
+}
+
+
+/* =========================================================
+   HEADER & NAVIGATION
+   ========================================================= */
+
+.pm-header {
+  position: fixed;
+  inset: 0 0 auto;
+  background: var(--pm-orange);
+  z-index: 10;
+}
+
+.pm-nav {
+  max-width: 1200px;
+  height: 78px;
+  margin: auto;
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pm-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.pm-brand img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.pm-nav nav {
+  display: flex;
+  gap: 22px;
+}
+
+.pm-nav nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.pm-main {
+  padding: 120px 20px 70px;
+}
+
+.pm-wrap {
+  max-width: 1400px;
+  margin: auto;
+}
+
+.pm-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: end;
+}
+
+.pm-head span,
+.section-head span,
+dialog > form > span {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--pm-orange);
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin: 5px 0;
+}
+
+h2 {
+  margin: 0;
+}
+
+.pm-head p {
+  color: var(--pm-muted);
+  margin: 0;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+button {
+  border-radius: 9px;
+  padding: 11px 16px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.pm-head button {
+  background: var(--pm-orange);
+  color: #fff;
+  border: 0;
+}
+
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+.pm-toolbar {
+  margin: 28px 0 15px;
+
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 15px;
+  padding: 15px;
+
+  display: flex;
+  gap: 10px;
+}
+
+.pm-toolbar button {
+  border-radius: 9px;
+  padding: 11px 16px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.pm-toolbar select,
+.pm-toolbar input {
+  border: 1px solid #dfe3e8;
+  border-radius: 8px;
+  padding: 10px;
+  font: inherit;
+  width: 100%;
+}
+
+
+/* =========================================================
+   STATISTICS
+   ========================================================= */
+
+.pm-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.pm-stats div {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 13px;
+  padding: 16px;
+}
+
+.pm-stats small {
+  display: block;
+  color: var(--pm-muted);
+}
+
+.pm-stats b {
+  font-size: 1.5rem;
+}
+
+
+/* =========================================================
+   KANBAN BOARD
+   ========================================================= */
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(220px, 1fr));
+  gap: 12px;
+
+  /*
+    Keep horizontal scrolling for the board,
+    while allowing dropdown menus to appear outside
+    individual task cards.
+  */
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
+
+/* =========================================================
+   KANBAN COLUMNS
+   ========================================================= */
+
+.column {
+  position: relative;
+
+  background: #edf0f4;
+  border: 1px solid #e0e4e9;
+  border-radius: 14px;
+  padding: 10px;
+
+  min-height: 500px;
+
+  /*
+    Important:
+    Allows the three-dot task menu to extend
+    outside the column instead of being clipped.
+  */
+  overflow: visible;
+}
+
+.column.drag {
+  outline: 2px dashed var(--pm-orange);
+}
+
+.column-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 4px 10px;
+}
+
+
+/* =========================================================
+   ADD TASK BUTTON
+   ========================================================= */
+
+.add-task {
+  width: 100%;
+
+  border: 1px dashed #c9ced6;
+  background: transparent;
+  color: var(--pm-muted);
+
+  margin-bottom: 9px;
+}
+
+
+/* =========================================================
+   TASK LIST
+   ========================================================= */
+
+.task-list {
+  height: 420px;
+  min-height: 420px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 6px;
+}
+
+/* Scrollbar for each task column */
+.task-list::-webkit-scrollbar {
+  width: 7px;
+}
+
+.task-list::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+.task-list::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.task-list::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+
+/* =========================================================
+   TASK CARD
+   ========================================================= */
+
+.task {
+  position: relative;
+
+  background: #fff;
+  border: 1px solid #e3e6eb;
+  border-radius: 11px;
+
+  padding: 13px;
+  margin-bottom: 9px;
+
+  cursor: grab;
+
+  box-shadow: 0 4px 12px #1720330b;
+
+  /*
+    Prevent the task itself from clipping
+    the three-dot menu.
+  */
+  overflow: visible;
+}
+
+.task.dragging {
+  opacity: 0.45;
+}
+
+.task h3 {
+  font-size: 0.88rem;
+  margin: 0 0 8px;
+}
+
+.task p {
+  font-size: 0.75rem;
+  color: var(--pm-muted);
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   TASK PRIORITIES
+   ========================================================= */
+
+.priority {
+  display: inline-block;
+
+  border-radius: 99px;
+  padding: 3px 7px;
+
+  font-size: 0.65rem;
+  font-weight: 700;
+
+  text-transform: uppercase;
+}
+
+.high {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.medium {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.low {
+  background: #dcfce7;
+  color: #166534;
+}
+
+
+/* =========================================================
+   TASK META / TAGS
+   ========================================================= */
+
+.task-meta {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+
+  margin-top: 9px;
+}
+
+.tag,
+.due {
+  font-size: 0.63rem;
+
+  background: #f2f0fe;
+  color: #5200d9;
+
+  padding: 3px 6px;
+  border-radius: 5px;
+}
+
+.due {
+  background: #f3f4f6;
+  color: #5b6470;
+}
+
+
+/* =========================================================
+   TASK ACTIONS
+   ========================================================= */
+
+.task-actions {
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: 10px;
+
+  position: relative;
+  z-index: 50;
+}
+
+.task-actions button {
+  border: 0;
+  background: transparent;
+
+  color: var(--pm-orange);
+
+  padding: 2px;
+  font-size: 0.75rem;
+}
+
+
+/* =========================================================
+   TASK DELETE BUTTON
+   ========================================================= */
+
+.task-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.task-delete-button {
+  border: 0;
+  background: transparent;
+  color: var(--pm-muted);
+
+  width: 30px;
+  height: 30px;
+
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 7px;
+
+  font-size: 1.15rem;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.task-delete-button:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+
+/* =========================================================
+   PROJECTS SECTION
+   ========================================================= */
+
+.projects {
+  margin-top: 55px;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.section-head button {
+  border: 0;
+  background: none;
+
+  color: var(--pm-orange);
+
+  font-weight: 600;
+}
+
+.project-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.project-card {
+  background: #fff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 13px;
+
+  padding: 17px;
+
+  cursor: pointer;
+}
+
+.project-card.active {
+  border-color: var(--pm-orange);
+
+  box-shadow: 0 0 0 3px #f9731618;
+}
+
+.project-card p {
+  font-size: 0.78rem;
+  color: var(--pm-muted);
+}
+
+.project-delete-button {
+  border: 0;
+  background: transparent;
+  color: #dc2626;
+  padding: 2px 5px;
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.2;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.project-delete-button:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+
+/* =========================================================
+   PROJECT PROGRESS
+   ========================================================= */
+
+.bar {
+  height: 7px;
+
+  background: #edf0f3;
+
+  border-radius: 99px;
+
+  overflow: hidden;
+}
+
+.bar i {
+  display: block;
+
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    var(--pm-orange),
+    #c10fff
+  );
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+
+  color: var(--pm-muted);
+
+  font-size: 0.65rem;
+
+  margin-top: 5px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.pm-footer {
+  background: var(--pm-navy);
+
+  color: #fff;
+
+  text-align: center;
+
+  padding: 22px;
+
+  font-size: 0.75rem;
+}
+
+
+/* =========================================================
+   DIALOG / POPUP
+   ========================================================= */
+
+dialog {
+  position: relative;
+
+  border: 0;
+  border-radius: 16px;
+
+  padding: 25px;
+
+  width: min(600px, calc(100% - 30px));
+
+  box-shadow: 0 25px 70px #0003;
+}
+
+dialog::backdrop {
+  background: #17203388;
+}
+
+dialog form {
+  display: grid;
+  gap: 14px;
+}
+
+dialog label {
+  display: grid;
+  gap: 6px;
+
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+dialog input,
+dialog textarea,
+dialog select {
+  border: 1px solid #dfe3e8;
+
+  border-radius: 8px;
+
+  padding: 10px;
+
+  font: inherit;
+
+  width: 100%;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
+.close {
+  position: absolute;
+
+  right: 15px;
+  top: 15px;
+
+  border: 0;
+
+  background: #f1f2f4;
+
+  font-size: 1.2rem;
+
+  padding: 6px 10px;
+}
+
+
+/* =========================================================
+   DIALOG FORM GRID
+   ========================================================= */
+
+.form-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+}
+
+
+/* =========================================================
+   TASK ATTACHMENTS
+   ========================================================= */
+
+.task-attachments {
+  margin-top: 18px;
+  padding: 15px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fafafa;
+}
+
+.task-attachments-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 12px;
+}
+
+.task-attachments-head > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.task-attachments-head strong {
+  color: var(--pm-navy);
+  font-size: 0.85rem;
+}
+
+.task-attachments-head small {
+  color: var(--pm-muted);
+  font-size: 0.68rem;
+}
+
+
+/* Attach files button */
+
+.attach-files-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  padding: 7px 11px;
+  border-radius: 7px;
+  background: var(--pm-orange);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.attach-files-button:hover {
+  opacity: 0.9;
+}
+
+
+/* Attachment list */
+
+.task-attachments-list {
+  display: grid;
+  gap: 8px;
+}
+
+
+/* Individual attachment */
+
+.task-attachment {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+
+/* File information */
+
+.task-attachment-info {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  flex: 1;
+}
+
+.task-attachment-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 28px;
+  border-radius: 6px;
+  background: #f3f4f6;
+  color: var(--pm-orange);
+  font-size: 0.55rem;
+  font-weight: 700;
+}
+
+.task-attachment-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.task-attachment-file-name {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--pm-navy);
+  font-size: 0.73rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.task-attachment-file-name:hover {
+  color: var(--pm-orange);
+  text-decoration: underline;
+}
+
+.task-attachment-details small {
+  color: var(--pm-muted);
+  font-size: 0.62rem;
+}
+
+
+/* Attachment buttons */
+
+.task-attachment-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+
+.task-attachment-actions button {
+  border: 0;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.62rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.attachment-download {
+  color: var(--pm-navy);
+}
+
+.attachment-download:hover {
+  background: #f3f4f6;
+}
+
+.attachment-remove {
+  color: #dc2626;
+}
+
+.attachment-remove:hover {
+  background: #fef2f2;
+}
+
+
+/* Empty state */
+
+.no-attachments {
+  margin: 0;
+  padding: 10px 0;
+  color: var(--pm-muted);
+  font-size: 0.68rem;
+}
+
+
+/* Mobile */
+
+@media (max-width: 640px) {
+
+  .task-attachments-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .attach-files-button {
+    width: 100%;
+  }
+
+  .task-attachment {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .task-attachment-info {
+    width: 100%;
+  }
+
+  .task-attachment-actions {
+    width: 100%;
+  }
+
+  .task-attachment-actions button {
+    flex: 1;
+  }
+
+}
+
+/* =========================================================
+   DIALOG ACTION BUTTONS
+   ========================================================= */
+
+.dialog-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 8px;
+
+  margin-top: 5px;
+}
+
+
+/* Generic dialog buttons */
+
+.dialog-actions button {
+  border: 1px solid #ddd;
+
+  background: #fff;
+
+  color: var(--pm-navy);
+
+  border-radius: 9px;
+
+  padding: 11px 16px;
+
+  font: inherit;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   SAVE TASK / CREATE PROJECT BUTTONS
+   ========================================================= */
+
+/*
+  This rule comes AFTER the generic dialog button rule
+  so it correctly overrides the white background.
+*/
+
+.dialog-actions .primary {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 110px;
+
+  background: var(--pm-orange);
+
+  color: #fff;
+
+  border: 1px solid var(--pm-orange);
+
+  opacity: 1;
+  visibility: visible;
+}
+
+.dialog-actions .primary:hover {
+  background: #ea580c;
+
+  border-color: #ea580c;
+}
+
+
+/* Cancel button hover */
+
+.dialog-actions button:not(.primary):hover {
+  background: #f3f4f6;
+}
+
+
+/* =========================================================
+   EMPTY COLUMN
+   ========================================================= */
+
+.empty-column {
+  padding: 25px 10px;
+
+  text-align: center;
+
+  color: var(--pm-muted);
+
+  font-size: 0.75rem;
+}
+
+
+/* =========================================================
+   SCREEN READER ONLY
+   ========================================================= */
+
+.sr-only {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip: rect(0, 0, 0, 0);
+
+  white-space: nowrap;
+
+  border: 0;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+  .pm-nav nav {
+    display: none;
+  }
+
+  .board {
+    min-width: 1160px;
+  }
+
+  .project-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+  .pm-main {
+    padding: 100px 12px 50px;
+  }
+
+  .pm-head {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .pm-head button {
+    width: 100%;
+  }
+
+  .pm-toolbar {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pm-toolbar input {
+    grid-column: 1 / -1;
+  }
+
+  .pm-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .project-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  /*
+    Stack popup buttons vertically on small screens.
+  */
+
+  .dialog-actions {
+    flex-direction: column-reverse;
+  }
+
+  .dialog-actions button {
+    width: 100%;
+  }
+
+}
+
+/* =========================================================
+   TASK CARD ATTACHMENTS
+   ========================================================= */
+
+.task-attachments-card {
+  margin-top: 11px;
+  padding-top: 10px;
+  border-top: 1px solid #edf0f3;
+}
+
+.task-attachments-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 6px;
+
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--pm-navy);
+}
+
+.task-attachments-card-title span:last-child {
+  color: var(--pm-muted);
+  font-weight: 500;
+}
+
+.task-attachment-names {
+  display: grid;
+  gap: 4px;
+}
+
+.task-attachment-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  min-width: 0;
+
+  font-size: 0.65rem;
+  color: var(--pm-muted);
+}
+
+.task-attachment-name > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.task-attachment-file-icon {
+  flex: 0 0 auto;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 26px;
+  height: 20px;
+
+  border-radius: 4px;
+
+  background: #f3f4f6;
+  color: var(--pm-orange);
+
+  font-size: 0.5rem;
+  font-weight: 700;
+}
+
+/* =========================================================
+   CLICKABLE TASK ATTACHMENT LINKS
+   ========================================================= */
+
+.task-attachment-link {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--pm-orange);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.task-attachment-link:hover {
+  text-decoration: underline;
+}

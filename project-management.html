@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>Project Management | Kevin Arevalo</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+
+  >
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="icon" type="image/png" href="assets/favicon-o.png">
+
+  <!-- Main Website CSS -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Project Management CSS -->
+  <link rel="stylesheet" href="project-management.css">
+</head>
+
+
+<body class="pm-page">
+
+  <!-- =====================================================
+       HEADER / NAVIGATION
+       ===================================================== -->
+
+  <header class="site-header">
+    <div class="container">
+
+  <nav class="nav" aria-label="Primary navigation">
+
+    <a
+      class="brand"
+      href="index.html"
+      aria-label="Kevin Arevalo"
+    >
+      <img
+        src="assets/favicon-w.png"
+        alt="Kevin Arevalo"
+      >
+    </a>
+   <a href="social/social-media-calendar.html">Social Media Calendar</a>
+
+        <a
+          class="btn purple1"
+          href="mailto:kevinarevalofreelanceph@gmail.com?subject=I%20would%20like%20to%20know%20more%20about%20your%20services&body=Hi%20Kevin%2C%0A%0AI%20am%20interested%20in%20your%20services.%20Can%20you%20please%20get%20back%20to%20me%2C%20and%20let%27s%20talk%20about%20it.%0A%0AThank%20you%21"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Contact Me
+        </a>
+
+    <div class="socials" aria-label="Social links">
+
+      <a
+        href="https://www.linkedin.com/in/kevin-arevalo-44ba21239/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn"
+      >
+        <img
+          src="assets/LinkedIn_Icon.svg"
+          alt=""
+        >
+      </a>
+
+    </div>
+
+    <button
+      class="mobile-toggle"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+    >
+      ☰
+    </button>
+
+  </nav>
+
+</div>
+
+  </header>
+
+
+  <!-- =====================================================
+       MAIN CONTENT
+       ===================================================== -->
+
+  <main class="pm-main">
+
+    <div class="pm-wrap">
+
+
+      <!-- =================================================
+           PAGE HEADER
+           ================================================= -->
+
+      <section class="pm-head">
+
+        <div>
+
+          <span>WORKSPACE</span>
+
+          <h1>
+            Project Management
+          </h1>
+
+          <p>
+            Plan projects, organize tasks, and track progress
+            in one place.
+          </p>
+
+        </div>
+
+
+        <!-- New Project Button -->
+
+        <button
+          id="newProject"
+          type="button"
+        >
+          + New Project
+        </button>
+
+      </section>
+
+
+
+      <!-- =================================================
+           TOOLBAR
+           ================================================= -->
+
+      <section class="pm-toolbar">
+
+        <!-- Project Selector -->
+
+        <label for="projectSelect" class="sr-only">
+          Select project
+        </label>
+
+        <select id="projectSelect">
+        </select>
+
+
+        <!-- Status Filter -->
+
+        <label for="statusFilter" class="sr-only">
+          Filter by status
+        </label>
+
+        <select id="statusFilter">
+
+          <option value="all">
+            All statuses
+          </option>
+
+          <option value="backlog">
+            Backlog
+          </option>
+
+          <option value="todo">
+            To Do
+          </option>
+
+          <option value="in-progress">
+            In Progress
+          </option>
+
+          <option value="review">
+            Review
+          </option>
+
+          <option value="done">
+            Done
+          </option>
+
+        </select>
+
+
+        <!-- Priority Filter -->
+
+        <label for="priorityFilter" class="sr-only">
+          Filter by priority
+        </label>
+
+        <select id="priorityFilter">
+
+          <option value="all">
+            All priorities
+          </option>
+
+          <option value="high">
+            High
+          </option>
+
+          <option value="medium">
+            Medium
+          </option>
+
+          <option value="low">
+            Low
+          </option>
+
+        </select>
+
+
+        <!-- Task Search -->
+
+        <label for="search" class="sr-only">
+          Search tasks
+        </label>
+
+        <input
+          id="search"
+          type="search"
+          placeholder="Search tasks..."
+          autocomplete="off"
+        >
+
+      </section>
+
+
+
+      <!-- =================================================
+           PROJECT STATISTICS
+           ================================================= -->
+
+      <section
+        class="pm-stats"
+        aria-label="Project statistics"
+      >
+
+        <!-- Total Tasks -->
+
+        <div>
+
+          <small>
+            Tasks
+          </small>
+
+          <b id="statTasks">
+            0
+          </b>
+
+        </div>
+
+
+        <!-- Completed -->
+
+        <div>
+
+          <small>
+            Completed
+          </small>
+
+          <b id="statCompleted">
+            0%
+          </b>
+
+        </div>
+
+
+        <!-- In Progress -->
+
+        <div>
+
+          <small>
+            In Progress
+          </small>
+
+          <b id="statProgress">
+            0
+          </b>
+
+        </div>
+
+
+        <!-- Due Soon -->
+
+        <div>
+
+          <small>
+            Due Soon
+          </small>
+
+          <b id="statDue">
+            0
+          </b>
+
+        </div>
+
+
+
+       <!-- Overdue -->
+
+<div>
+
+  <small>
+    Overdue
+  </small>
+
+  <b id="statOverdue">
+    0
+  </b>
+
+</div>
+
+      </section>
+
+      <!-- =================================================
+           KANBAN BOARD
+           ================================================= -->
+
+      <section
+        id="board"
+        class="board"
+        aria-label="Project task board"
+      >
+      </section>
+
+
+
+      <!-- =================================================
+           PROJECT LIST
+           ================================================= -->
+
+      <section class="projects">
+
+        <div class="section-head">
+
+          <div>
+
+            <span>
+              PROJECTS
+            </span>
+
+            <h2>
+              Your projects
+            </h2>
+
+          </div>
+
+
+          <!-- Add Project -->
+
+          <button
+            id="newProject2"
+            type="button"
+          >
+            + Add project
+          </button>
+
+        </div>
+
+
+        <!-- Project Cards -->
+
+        <div
+          id="projectCards"
+          class="project-cards"
+        >
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+
+  <footer class="pm-footer">
+
+    ©
+    <span id="year"></span>
+    Kevin Arevalo.
+    Project Management Workspace.
+
+  </footer>
+
+
+
+  <!-- =====================================================
+       NEW / EDIT TASK DIALOG
+       ===================================================== -->
+
+  <dialog id="taskDialog">
+
+    <form id="taskForm">
+
+      <!-- Close Button -->
+
+      <button
+        type="button"
+        class="close"
+        data-close="taskDialog"
+        aria-label="Close task dialog"
+      >
+        ×
+      </button>
+
+
+      <span>
+        TASK
+      </span>
+
+
+      <h2 id="taskDialogTitle">
+        Task
+      </h2>
+
+
+      <!-- Hidden Task Information -->
+
+      <input
+        type="hidden"
+        id="taskId"
+      >
+
+      <input
+        type="hidden"
+        id="taskStatus"
+      >
+
+
+      <!-- Task Title -->
+
+      <label for="taskTitle">
+
+        Title
+
+        <input
+          id="taskTitle"
+          type="text"
+          required
+          maxlength="140"
+          placeholder="Enter task title"
+        >
+
+      </label>
+
+
+      <!-- Task Description -->
+
+      <label for="taskDescription">
+
+        Description
+
+        <textarea
+          id="taskDescription"
+          rows="4"
+          placeholder="Add task details..."
+        ></textarea>
+
+      </label>
+
+
+      <!-- Priority + Due Date -->
+
+      <div class="form-grid">
+
+
+        <!-- Priority -->
+
+        <label for="taskPriority">
+
+          Priority
+
+          <select id="taskPriority">
+
+            <option value="high">
+              High
+            </option>
+
+            <option
+              value="medium"
+              selected
+            >
+              Medium
+            </option>
+
+            <option value="low">
+              Low
+            </option>
+
+          </select>
+
+        </label>
+
+
+        <!-- Due Date -->
+
+        <label for="taskDue">
+
+          Due date
+
+          <input
+            id="taskDue"
+            type="date"
+          >
+
+        </label>
+
+      </div>
+
+
+<!-- Labels -->
+
+<label for="taskLabels">
+
+  Labels
+
+  <input
+    id="taskLabels"
+    type="text"
+    placeholder="SEO, Client, Content"
+  >
+
+</label>
+
+
+<!-- =================================================
+     TASK ATTACHMENTS
+     ================================================= -->
+
+<section
+  class="task-attachments"
+  aria-labelledby="taskAttachmentsTitle"
+>
+
+  <div class="task-attachments-head">
+
+    <div>
+
+      <strong id="taskAttachmentsTitle">
+        Attachments
+      </strong>
+
+      <small>
+        Add images and documents to this task.
+      </small>
+
+    </div>
+
+
+    <label
+      for="taskFiles"
+      class="attach-files-button"
+    >
+      + Attach files
+    </label>
+
+    <input
+      id="taskFiles"
+      type="file"
+      multiple
+      hidden
+      accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv"
+    >
+
+  </div>
+
+
+  <div
+    id="taskAttachmentsList"
+    class="task-attachments-list"
+  >
+
+    <p class="no-attachments">
+      No attachments yet.
+    </p>
+
+  </div>
+
+</section>
+
+
+      <!-- Dialog Buttons -->
+
+      <div class="dialog-actions">
+
+        <button
+          type="button"
+          data-close="taskDialog"
+        >
+          Cancel
+        </button>
+
+
+        <button
+          type="submit"
+          class="primary"
+        >
+          Save task
+        </button>
+
+      </div>
+
+    </form>
+
+  </dialog>
+
+
+
+  <!-- =====================================================
+       NEW PROJECT DIALOG
+       ===================================================== -->
+
+  <dialog id="projectDialog">
+
+    <form id="projectForm">
+
+      <!-- Close Button -->
+
+      <button
+        type="button"
+        class="close"
+        data-close="projectDialog"
+        aria-label="Close project dialog"
+      >
+        ×
+      </button>
+
+
+      <span>
+        PROJECT
+      </span>
+
+
+      <h2>
+        New project
+      </h2>
+
+
+      <!-- Project Name -->
+
+      <label for="projectName">
+
+        Project name
+
+        <input
+          id="projectName"
+          type="text"
+          required
+          maxlength="100"
+          placeholder="Enter project name"
+        >
+
+      </label>
+
+
+      <!-- Project Description -->
+
+      <label for="projectDescription">
+
+        Description
+
+        <textarea
+          id="projectDescription"
+          rows="4"
+          placeholder="What is this project about?"
+        ></textarea>
+
+      </label>
+
+
+      <!-- Dialog Buttons -->
+
+      <div class="dialog-actions">
+
+        <button
+          type="button"
+          data-close="projectDialog"
+        >
+          Cancel
+        </button>
+
+
+        <button
+          type="submit"
+          class="primary"
+        >
+          Create project
+        </button>
+
+      </div>
+
+    </form>
+
+  </dialog>
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
+
+  <script src="project-management.js"></script>
+
+</body>
+
+</html>
