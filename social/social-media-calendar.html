@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B9ND5P4EDS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B9ND5P4EDS');
+</script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Social Media Calendar | Kevin Arevalo</title>
+
+  <meta
+    name="description"
+    content="Kevin Arevalo social media content planning and calendar workspace."
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Shared website assets -->
+  <link rel="icon" type="image/png" href="../assets/favicon-o.png">
+  <link rel="stylesheet" href="../styles.css">
+
+  <!-- Social Media Calendar styles -->
+  <link rel="stylesheet" href="social-media-calendar.css">
+</head>
+
+<body class="smc-page">
+
+  <!-- =========================
+       HEADER / NAVIGATION
+       ========================= -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Primary navigation">
+
+        <a
+          class="brand"
+          href="../index.html"
+          aria-label="Kevin Arevalo home"
+        >
+          <img
+            src="../assets/favicon-w.png"
+            alt="Kevin Arevalo"
+          >
+        </a>
+
+        <a href="../project-management.html">
+          Project Management
+        </a>
+
+        <a
+          class="btn purple1"
+          href="mailto:kevinarevalofreelanceph@gmail.com?subject=I%20would%20like%20to%20know%20more%20about%20your%20services&body=Hi%20Kevin%2C%0A%0AI%20am%20interested%20in%20your%20services.%20Can%20you%20please%20get%20back%20to%20me%2C%20and%20let%27s%20talk%20about%20it.%0A%0AThank%20you%21"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Contact Me
+        </a>
+
+        <div class="socials" aria-label="Social links">
+          <a
+            href="https://www.linkedin.com/in/kevin-arevalo-44ba21239/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
+            <img
+              src="../assets/LinkedIn_Icon.svg"
+              alt=""
+            >
+          </a>
+        </div>
+
+        <button
+          class="mobile-toggle"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+        >
+          ☰
+        </button>
+
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- =========================
+       MAIN CONTENT
+       ========================= -->
+  <main class="smc-main">
+
+    <div class="smc-wrap">
+
+      <!-- PAGE HEADER -->
+      <section class="smc-head">
+
+        <div>
+          <span class="smc-eyebrow">
+            SOCIAL MEDIA
+          </span>
+
+          <h1>
+            Social Media Calendar
+          </h1>
+
+          <p>
+            Plan, organize, and schedule your social media content in one place.
+          </p>
+        </div>
+
+        <button
+          id="newPost"
+          class="smc-primary-button"
+          type="button"
+        >
+          + Create post
+        </button>
+
+      </section>
+
+<!-- =========================
+     EDITING SESSION
+     ========================= -->
+<section
+  class="smc-editor-session"
+  aria-label="Editing session"
+>
+
+  <div class="smc-editor-session-info">
+
+    <span
+      id="editorSessionIcon"
+      class="smc-editor-session-icon"
+      aria-hidden="true"
+    >
+      🔒
+    </span>
+
+    <div>
+      <strong id="editorSessionTitle">
+        Editing locked
+      </strong>
+
+      <small id="editorSessionMessage">
+        Select your name before making changes to the calendar.
+      </small>
+    </div>
+
+  </div>
+
+  <div class="smc-editor-session-actions">
+
+    <label for="editorUser">
+      <span class="sr-only">
+        Select your name
+      </span>
+
+      <select id="editorUser">
+        <option value="">
+          Select your name
+        </option>
+
+        <option value="kevin-arevalo">
+          Kevin Arevalo
+        </option>
+
+        <!-- Add additional authorized team members here -->
+      </select>
+    </label>
+
+    <button
+      id="startEditing"
+      class="smc-secondary-button"
+      type="button"
+      disabled
+    >
+      Start editing
+    </button>
+
+    <button
+      id="lockEditing"
+      class="smc-secondary-button"
+      type="button"
+      hidden
+    >
+      Lock editing
+    </button>
+
+  </div>
+
+</section>
+<!-- =========================
+     STATISTICS
+     ========================= -->
+<section
+  class="smc-stats"
+  aria-label="Social media statistics"
+>
+
+  <div class="smc-stat-card">
+    <small>Total posts</small>
+    <strong id="statTotal">0</strong>
+  </div>
+
+  <div class="smc-stat-card">
+    <small>Draft</small>
+    <strong id="statDraft">0</strong>
+  </div>
+
+  <div class="smc-stat-card">
+    <small>Scheduled</small>
+    <strong id="statScheduled">0</strong>
+  </div>
+
+  <div class="smc-stat-card">
+    <small>Stuck</small>
+    <strong id="statStuck">0</strong>
+  </div>
+
+  <div class="smc-stat-card">
+    <small>Running</small>
+    <strong id="statRunning">0</strong>
+  </div>
+
+  <div class="smc-stat-card">
+    <small>On Hold</small>
+    <strong id="statOnHold">0</strong>
+  </div>
+
+  <div class="smc-stat-card">
+    <small>Published</small>
+    <strong id="statPublished">0</strong>
+  </div>
+
+  <div class="smc-stat-card">
+    <small>This month</small>
+    <strong id="statMonth">0</strong>
+  </div>
+
+  <div class="smc-stat-card">
+    <small>Platforms</small>
+    <strong id="statPlatforms">0</strong>
+  </div>
+
+</section>
+
+      <!-- =========================
+           FILTER TOOLBAR
+           ========================= -->
+      <section class="smc-toolbar">
+
+        <div class="smc-toolbar-group">
+
+          <label
+            for="platformFilter"
+            class="sr-only"
+          >
+            Filter by platform
+          </label>
+
+          <select id="platformFilter">
+            <option value="all">All platforms</option>
+            <option value="linkedin">LinkedIn</option>
+            <option value="facebook">Facebook</option>
+            <option value="instagram">Instagram</option>
+            <option value="x">X</option>
+          </select>
+
+
+          <label
+            for="statusFilter"
+            class="sr-only"
+          >
+            Filter by status
+          </label>
+
+<select id="statusFilter">
+  <option value="all">All post statuses</option>
+  <option value="draft">Draft</option>
+  <option value="scheduled">Scheduled</option>
+  <option value="stuck">Stuck</option>
+  <option value="running">Running</option>
+  <option value="on-hold">On Hold</option>
+  <option value="published">Published</option>
+</select>
+
+        </div>
+
+
+        <div class="smc-toolbar-group smc-search">
+
+          <label
+            for="postSearch"
+            class="sr-only"
+          >
+            Search posts
+          </label>
+
+          <input
+            id="postSearch"
+            type="search"
+            placeholder="Search posts..."
+            autocomplete="off"
+          >
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           CALENDAR
+           ========================= -->
+      <section class="smc-calendar-section">
+
+        <div class="smc-calendar-head">
+
+          <div class="smc-calendar-title">
+
+            <button
+              id="previousMonth"
+              class="smc-calendar-nav"
+              type="button"
+              aria-label="Previous month"
+            >
+              ‹
+            </button>
+
+            <h2 id="calendarTitle">
+              September 2026
+            </h2>
+
+            <button
+              id="nextMonth"
+              class="smc-calendar-nav"
+              type="button"
+              aria-label="Next month"
+            >
+              ›
+            </button>
+
+          </div>
+
+          <button
+            id="todayButton"
+            class="smc-secondary-button"
+            type="button"
+          >
+            Today
+          </button>
+
+        </div>
+
+
+        <div
+          id="calendar"
+          class="smc-calendar"
+          aria-label="Social media calendar"
+        ></div>
+
+      </section>
+
+
+      <!-- =========================
+           UPCOMING POSTS
+           ========================= -->
+      <section class="smc-upcoming">
+
+        <div class="smc-section-head">
+
+          <div>
+            <span>UPCOMING</span>
+
+            <h2>
+              Scheduled posts
+            </h2>
+          </div>
+
+        </div>
+
+        <div
+          id="upcomingPosts"
+          class="smc-upcoming-list"
+        ></div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+       ========================= -->
+  <footer class="pm-footer">
+    © <span id="year"></span> Kevin Arevalo. Social Media Calendar.
+  </footer>
+
+
+  <!-- =========================
+       CREATE / EDIT POST DIALOG
+       ========================= -->
+  <dialog id="postDialog">
+
+    <form id="postForm">
+
+      <button
+        type="button"
+        class="close"
+        data-close="postDialog"
+        aria-label="Close post dialog"
+      >
+        ×
+      </button>
+
+
+      <span class="smc-dialog-label">
+        SOCIAL POST
+      </span>
+
+      <h2 id="postDialogTitle">
+        Create post
+      </h2>
+
+
+      <input
+        type="hidden"
+        id="postId"
+      >
+
+
+      <!-- PLATFORM -->
+      <label for="postPlatform">
+        Platform
+
+        <select id="postPlatform">
+          <option value="linkedin">LinkedIn</option>
+          <option value="facebook">Facebook</option>
+          <option value="instagram">Instagram</option>
+          <option value="x">X</option>
+        </select>
+
+      </label>
+
+
+      <!-- CAPTION -->
+      <label for="postCaption">
+        Caption
+
+        <textarea
+          id="postCaption"
+          rows="7"
+          maxlength="5000"
+          placeholder="Write your social media post..."
+        ></textarea>
+
+      </label>
+
+      <div class="smc-character-count">
+        <span id="captionCount">0</span> / 5000
+      </div>
+
+
+      <!-- HASHTAGS -->
+      <label for="postHashtags">
+        Hashtags
+
+        <input
+          id="postHashtags"
+          type="text"
+          maxlength="500"
+          placeholder="#marketing #seo #digitalmarketing"
+        >
+
+      </label>
+
+
+      <!-- DATE / TIME -->
+      <div class="form-grid">
+
+        <label for="postDate">
+          Date
+
+          <input
+            id="postDate"
+            type="date"
+            required
+          >
+
+        </label>
+
+
+        <label for="postTime">
+          Time
+
+          <input
+            id="postTime"
+            type="time"
+            required
+          >
+
+        </label>
+
+      </div>
+
+
+<!-- APPROVAL STATUS -->
+<label for="postApprovalStatus">
+  Approval status
+
+  <select id="postApprovalStatus">
+
+    <option value="in-review">
+      In review
+    </option>
+
+    <option value="needs-revision">
+      Needs revision
+    </option>
+
+    <option value="published">
+      Published
+    </option>
+
+  </select>
+
+</label>
+
+<div
+  id="approvalStatusMeta"
+  class="smc-status-meta"
+>
+  Last modified by: —
+</div>
+
+
+<!-- SUGGESTIONS / FEEDBACK -->
+<label for="postSuggestions">
+  Suggestions / Feedback
+
+  <textarea
+    id="postSuggestions"
+    rows="6"
+    placeholder="Add suggestions, feedback, revision notes, or instructions..."
+  ></textarea>
+
+</label>
+
+
+<!-- POST STATUS -->
+<label for="postStatus">
+  Post status
+
+  <select id="postStatus">
+
+    <option value="draft">
+      Draft
+    </option>
+
+    <option value="scheduled">
+      Scheduled
+    </option>
+
+    <option value="stuck">
+      Stuck
+    </option>
+
+    <option value="running">
+      Running
+    </option>
+
+    <option value="on-hold">
+      On Hold
+    </option>
+
+    <option value="published">
+      Published
+    </option>
+
+  </select>
+
+</label>
+
+<div
+  id="postStatusMeta"
+  class="smc-status-meta"
+>
+  Last modified by: —
+</div>
+
+
+<!-- CHANGE HISTORY -->
+<section
+  class="smc-change-history"
+  aria-labelledby="changeHistoryTitle"
+>
+
+  <div class="smc-change-history-head">
+
+    <div>
+      <strong id="changeHistoryTitle">
+        Change history
+      </strong>
+
+      <small>
+        Changes to this post are recorded automatically.
+      </small>
+    </div>
+
+  </div>
+
+  <div
+    id="postChangeHistory"
+    class="smc-change-history-list"
+  >
+    <p class="smc-no-history">
+      No changes recorded yet.
+    </p>
+  </div>
+
+</section>
+
+
+<!-- ATTACHMENTS -->
+<section
+  class="smc-attachments"
+  aria-labelledby="postAttachmentsTitle"
+>
+
+  <div class="smc-attachments-head">
+
+    <div>
+      <strong id="postAttachmentsTitle">
+        Attachments
+      </strong>
+
+      <small>
+        Add images and documents to your social post.
+      </small>
+    </div>
+
+    <label
+      for="postFiles"
+      class="smc-attach-button"
+    >
+      + Attach files
+    </label>
+
+    <input
+      id="postFiles"
+      type="file"
+      multiple
+      hidden
+      accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv"
+    >
+
+  </div>
+
+  <div
+    id="postAttachmentsList"
+    class="smc-attachments-list"
+  >
+    <p class="smc-no-media">
+      No attachments yet.
+    </p>
+  </div>
+
+</section>
+
+      <!-- ACTIONS -->
+      <div class="dialog-actions">
+
+        <button
+          type="button"
+          data-close="postDialog"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="primary"
+        >
+          Save post
+        </button>
+
+      </div>
+
+    </form>
+
+  </dialog>
+
+
+  <!-- Social Media Calendar JavaScript -->
+  <script src="social-media-calendar.js"></script>
+
+</body>
+</html>
