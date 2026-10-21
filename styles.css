@@ -118,8 +118,8 @@ a {
 }
 
 .brand img {
-  width: 55px;
-  height: auto;
+  width: 100px;
+  height: 50px;
   display: block;
   object-fit: contain;
 }
@@ -196,6 +196,13 @@ a {
   pointer-events: auto;
 }
 
+/* Keep dropdown open after clicking Projects */
+
+.nav-dropdown.open .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 
 /* =========================================================
    8. KEYBOARD FOCUS
@@ -235,35 +242,27 @@ a {
    10. HERO SECTION
    ========================================================= */
 
+
+
 .hero {
-  min-height: 650px;
-  background: linear-gradient(
-    135deg,
-    var(--orange),
-    var(--orange-dark)
-  );
-  color: var(--white);
-  display: flex;
-  align-items: center;
+  min-height: 0;
+  padding-bottom: 0;
 }
 
 .hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 40px;
-  padding: 110px 0 55px;
+  padding-top: 90px;
+  padding-bottom: 0;
 }
 
 .hero h1 {
   font-size: 54px;
-  line-height: 1.1;
+  line-height: 1.0;
   margin: 0 0 20px;
   letter-spacing: -1.5px;
 }
 
 .hero p {
-  font-size: 16px;
+  font-size: 20px;
   max-width: 530px;
   margin: 0 0 26px;
 }
@@ -2076,4 +2075,56 @@ h3 {
   border-color: var(--purple2);
   color: var(--white);
   transform: translateY(-2px);
+}
+
+/* =========================================================
+   ARTICLE TABLES — EXCEL STYLE
+   ========================================================= */
+
+.article-table-wrapper {
+  width: 100%;
+  margin: 30px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.article-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  font-size: 15px;
+  border: 1px solid #d1d5db;
+}
+
+.article-table th,
+.article-table td {
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+  text-align: left;
+  vertical-align: top;
+}
+
+.article-table th {
+  background: #f3f4f6;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.article-table td {
+  background: #ffffff;
+  color: #374151;
+  line-height: 1.7;
+}
+
+/* Mobile */
+@media (max-width: 650px) {
+  .article-table {
+    min-width: 650px;
+    font-size: 14px;
+  }
+
+  .article-table th,
+  .article-table td {
+    padding: 12px 14px;
+  }
 }
