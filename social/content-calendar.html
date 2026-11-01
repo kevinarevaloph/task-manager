@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marketing Content Calendar | Kevin Arevalo</title>
+  <meta name="description" content="Plan and organize marketing content across channels in one place.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../assets/favicon-o.png">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="content-calendar.css">
+</head>
+<body class="mc-page">
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="../index.html" aria-label="Kevin Arevalo home">
+          <img src="../assets/favicon-w.png" alt="Kevin Arevalo">
+        </a>
+        <a href="../project-management.html">Project Management</a>
+        <a href="social-media-calendar.html">Social Media Calendar</a>
+        <a href="../../daily-work-notes/index.html">Notes</a>
+        <a class="btn purple1" href="mailto:kevinarevalofreelanceph@gmail.com?subject=Marketing%20inquiry" target="_blank" rel="noopener noreferrer">Contact Me</a>
+        <div class="socials" aria-label="Social links">
+          <a href="https://www.linkedin.com/in/kevin-arevalo-44ba21239/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <img src="../assets/LinkedIn_Icon.svg" alt="">
+          </a>
+        </div>
+        <button class="mobile-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mc-main">
+    <div class="mc-wrap">
+      <section class="mc-heading">
+        <div>
+          <span class="mc-eyebrow">MARKETING WORKSPACE</span>
+          <h1>Marketing Content Calendar</h1>
+          <p>Plan, organize, and track every piece of marketing content in one place.</p>
+        </div>
+        <button class="mc-primary" id="addContent" type="button">+ Add content</button>
+      </section>
+
+
+
+      <section class="mc-stats" aria-label="Calendar overview">
+        <article class="mc-stat"><span>Total items</span><strong id="statTotal">0</strong></article>
+        <article class="mc-stat"><span>Draft</span><strong id="statDraft">0</strong></article>
+        <article class="mc-stat"><span>In review</span><strong id="statReview">0</strong></article>
+        <article class="mc-stat"><span>Scheduled</span><strong id="statScheduled">0</strong></article>
+        <article class="mc-stat"><span>Published</span><strong id="statPublished">0</strong></article>
+        <article class="mc-stat"><span>This month</span><strong id="statMonth">0</strong></article>
+      </section>
+
+      <section class="mc-toolbar" aria-label="Calendar controls">
+        <div class="mc-filters">
+          <label class="mc-sr-only" for="typeFilter">Filter by content type</label>
+          <select id="typeFilter">
+            <option value="all">All content types</option>
+            <option value="social">Social media</option>
+            <option value="blog">Blog &amp; SEO</option>
+            <option value="email">Email marketing</option>
+            <option value="website">Website content</option>
+            <option value="campaign">Campaign</option>
+            <option value="video">Video</option>
+            <option value="design">Marketing material</option>
+            <option value="other">Other</option>
+          </select>
+          <label class="mc-sr-only" for="statusFilter">Filter by status</label>
+          <select id="statusFilter">
+            <option value="all">All statuses</option>
+            <option value="idea">Idea</option>
+            <option value="draft">Draft</option>
+            <option value="in-review">In review</option>
+            <option value="approved">Approved</option>
+            <option value="scheduled">Scheduled</option>
+            <option value="published">Published</option>
+            <option value="on-hold">On hold</option>
+          </select>
+          <label class="mc-sr-only" for="channelFilter">Filter by channel</label>
+          <select id="channelFilter">
+            <option value="all">All channels</option>
+            <option value="LinkedIn">LinkedIn</option>
+            <option value="Facebook">Facebook</option>
+            <option value="Instagram">Instagram</option>
+            <option value="X">X</option>
+            <option value="Website">Website</option>
+            <option value="Email">Email</option>
+            <option value="YouTube">YouTube</option>
+            <option value="TikTok">TikTok</option>
+            <option value="Other">Other</option>
+          </select>
+          <label class="mc-sr-only" for="contentSearch">Search content</label>
+          <input id="contentSearch" type="search" placeholder="Search content..." autocomplete="off">
+        </div>
+        <div class="mc-view-controls" role="group" aria-label="Calendar view">
+          <button type="button" class="mc-view-button is-active" data-view="month" aria-pressed="true">Month</button>
+          <button type="button" class="mc-view-button" data-view="week" aria-pressed="false">Week</button>
+          <button type="button" class="mc-view-button" data-view="list" aria-pressed="false">List</button>
+        </div>
+      </section>
+
+      <section class="mc-calendar-panel" aria-label="Marketing content schedule">
+        <div class="mc-calendar-header">
+          <div class="mc-date-nav">
+            <button id="previousPeriod" type="button" aria-label="Previous period">‹</button>
+            <h2 id="calendarTitle">Month Year</h2>
+            <button id="nextPeriod" type="button" aria-label="Next period">›</button>
+          </div>
+          <button id="todayButton" class="mc-secondary" type="button">Today</button>
+        </div>
+        <div id="calendar" class="mc-calendar" aria-live="polite"></div>
+      </section>
+
+      <section class="mc-upcoming">
+        <div class="mc-section-heading">
+          <div><span>COMING UP</span><h2>Next content deadlines</h2></div>
+        </div>
+        <div id="upcomingList" class="mc-upcoming-list">
+          <p class="mc-empty">Sign in to view upcoming content.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="pm-footer">© <span id="currentYear"></span> Kevin Arevalo. Marketing Content Calendar.</footer>
+
+  <dialog id="contentDialog" class="mc-dialog">
+    <form id="contentForm">
+      <button type="button" class="mc-dialog-close" data-close-dialog aria-label="Close dialog">×</button>
+      <span class="mc-eyebrow">CONTENT DETAILS</span>
+      <h2 id="dialogTitle">Add marketing content</h2>
+      <input type="hidden" id="contentId">
+      <div class="mc-form-grid">
+        <label class="mc-field-wide" for="contentTitle">Content title *
+          <input id="contentTitle" type="text" maxlength="180" required placeholder="e.g. Q4 campaign announcement">
+        </label>
+        <label for="contentType">Content type *
+          <select id="contentType" required>
+            <option value="social">Social media</option><option value="blog">Blog &amp; SEO</option>
+            <option value="email">Email marketing</option><option value="website">Website content</option>
+            <option value="campaign">Campaign</option><option value="video">Video</option>
+            <option value="design">Marketing material</option><option value="other">Other</option>
+          </select>
+        </label>
+        <label for="contentChannel">Channel
+          <select id="contentChannel">
+            <option>LinkedIn</option><option>Facebook</option><option>Instagram</option><option>X</option>
+            <option>Website</option><option>Email</option><option>YouTube</option><option>TikTok</option><option>Other</option>
+          </select>
+        </label>
+        <label for="contentStatus">Status *
+          <select id="contentStatus" required>
+            <option value="idea">Idea</option><option value="draft">Draft</option>
+            <option value="in-review">In review</option><option value="approved">Approved</option>
+            <option value="scheduled">Scheduled</option><option value="published">Published</option>
+            <option value="on-hold">On hold</option>
+          </select>
+        </label>
+        <label for="contentDate">Publish / due date *
+          <input id="contentDate" type="date" required>
+        </label>
+        <label for="contentTime">Time
+          <input id="contentTime" type="time">
+        </label>
+        <label class="mc-field-wide" for="contentCampaign">Campaign / project
+          <input id="contentCampaign" type="text" maxlength="180" placeholder="Optional campaign name">
+        </label>
+        <label class="mc-field-wide" for="contentUrl">Content URL
+          <input id="contentUrl" type="url" maxlength="1000" placeholder="https://...">
+        </label>
+        <label class="mc-field-wide" for="contentBrief">Description / brief
+          <textarea id="contentBrief" rows="4" maxlength="10000" placeholder="Add the objective, key message, audience, or content brief..."></textarea>
+        </label>
+        <label class="mc-field-wide" for="contentNotes">Notes
+          <textarea id="contentNotes" rows="3" maxlength="5000" placeholder="Add reminders, feedback, or next steps..."></textarea>
+        </label>
+      </div>
+      <p id="formMessage" class="mc-form-message" role="alert"></p>
+      <div class="mc-dialog-actions">
+        <button type="button" class="mc-danger" id="deleteContent" hidden>Delete</button>
+        <span class="mc-dialog-spacer"></span>
+        <button type="button" class="mc-secondary" data-close-dialog>Cancel</button>
+        <button type="submit" class="mc-primary" id="saveContent">Save content</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="content-calendar.js"></script>
+</body>
+</html>
