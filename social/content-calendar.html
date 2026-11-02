@@ -20,8 +20,7 @@
           <img src="../assets/favicon-w.png" alt="Kevin Arevalo">
         </a>
         <a href="../project-management.html">Project Management</a>
-        <a href="social-media-calendar.html">Social Media Calendar</a>
-        <a href="../../worknotes/index.html">Notes</a>
+        <a href="../../daily-work-notes/index.html">Notes</a>
         <a class="btn purple1" href="mailto:kevinarevalofreelanceph@gmail.com?subject=Marketing%20inquiry" target="_blank" rel="noopener noreferrer">Contact Me</a>
         <div class="socials" aria-label="Social links">
           <a href="https://www.linkedin.com/in/kevin-arevalo-44ba21239/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
@@ -41,10 +40,37 @@
           <h1>Marketing Content Calendar</h1>
           <p>Plan, organize, and track every piece of marketing content in one place.</p>
         </div>
-        <button class="mc-primary" id="addContent" type="button">+ Add content</button>
+        <button class="mc-primary" id="addContent" type="button" disabled>+ Add content</button>
       </section>
 
+<section class="mc-project-panel" aria-label="Marketing projects">
+  <div class="mc-project-info">
+    <div>
+      <span class="mc-eyebrow">YOUR WORKSPACES</span>
+      <h2>Projects</h2>
+      <p>Organize your marketing content by project.</p>
+    </div>
+    <button class="mc-primary" id="addProject" type="button">+ Add Project</button>
+  </div>
 
+  <div class="mc-project-selector">
+    <label for="projectSelect">Current project</label>
+    <select id="projectSelect" aria-label="Select a project">
+      <option value="">Loading projects...</option>
+    </select>
+    <p id="projectDescription" class="mc-project-description"></p>
+  </div>
+</section>
+
+<section class="mc-auth-card mc-public-notice" aria-label="Public calendar">
+  <div class="mc-auth-copy">
+    <span class="mc-auth-icon" aria-hidden="true">📅</span>
+    <div>
+      <h2>Public Marketing Workspace</h2>
+      <p>This calendar is publicly accessible. You can browse projects, organize content, and manage marketing deadlines without signing in.</p>
+    </div>
+  </div>
+</section>
 
       <section class="mc-stats" aria-label="Calendar overview">
         <article class="mc-stat"><span>Total items</span><strong id="statTotal">0</strong></article>
@@ -127,6 +153,46 @@
   </main>
 
   <footer class="pm-footer">© <span id="currentYear"></span> Kevin Arevalo. Marketing Content Calendar.</footer>
+
+<dialog id="projectDialog" class="mc-dialog">
+  <form id="projectForm">
+    <button type="button" class="mc-dialog-close" data-close-project-dialog aria-label="Close dialog">×</button>
+
+    <span class="mc-eyebrow">PROJECT DETAILS</span>
+    <h2>Add a new project</h2>
+
+    <div class="mc-form-grid">
+      <label class="mc-field-wide" for="projectName">
+        Project name *
+        <input
+          id="projectName"
+          type="text"
+          maxlength="180"
+          required
+          placeholder="e.g. Website Redesign"
+        >
+      </label>
+
+      <label class="mc-field-wide" for="projectDescriptionInput">
+        Project description
+        <textarea
+          id="projectDescriptionInput"
+          rows="4"
+          maxlength="5000"
+          placeholder="Describe the project's goals, scope, or objectives..."
+        ></textarea>
+      </label>
+    </div>
+
+    <p id="projectFormMessage" class="mc-form-message" role="alert"></p>
+
+    <div class="mc-dialog-actions">
+      <span class="mc-dialog-spacer"></span>
+      <button type="button" class="mc-secondary" data-close-project-dialog>Cancel</button>
+      <button type="submit" class="mc-primary" id="saveProject">Create project</button>
+    </div>
+  </form>
+</dialog>
 
   <dialog id="contentDialog" class="mc-dialog">
     <form id="contentForm">
