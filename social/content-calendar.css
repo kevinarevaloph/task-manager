@@ -201,3 +201,50 @@
   padding: 23px 18px;
   }
 }
+
+/* PROJECT ACTIONS */
+.mc-project-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mc-project-actions button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+#deleteProjectDialog {
+  width: min(560px, calc(100% - 28px));
+}
+
+#deleteProjectDialog form {
+  padding: 28px;
+}
+
+#deleteProjectMessage {
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 12px 0 20px;
+}
+
+#deleteProjectFormMessage {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  .mc-project-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .mc-project-actions button {
+    width: 100%;
+  }
+
+  #deleteProjectDialog form {
+    padding: 23px 18px;
+  }
+}
