@@ -1,6 +1,7 @@
 
 /* Marketing Content Calendar
    Public Supabase-powered calendar with multi-project support.
+   Includes safe project deletion and content transfer.
    Use your Supabase project URL and anon/publishable key.
    Never use the service-role key in browser JavaScript.
 */
@@ -81,13 +82,26 @@
     );
   }
 
+  function isDefaultProject(project) {
+    return project?.name?.trim().toLowerCase() === "general content";
+  }
+
   function updateProjectSelector() {
     const select = $("projectSelect");
+    const deleteButton = $("deleteProject");
 
     if (!state.projects.length) {
       select.innerHTML = '<option value="">No projects available</option>';
-      $("projectDescription").textContent = "Create a project to start organizing your marketing content.";
+
+      $("projectDescription").textContent =
+        "Create a project to start organizing your marketing content.";
+
       $("addContent").disabled = true;
+
+      if (deleteButton) {
+        deleteButton.disabled = true;
+      }
+
       return;
     }
 
@@ -103,6 +117,19 @@
       activeProject?.description || "No project description provided.";
 
     $("addContent").disabled = !activeProject;
+
+    if (deleteButton) {
+      deleteButton.disabled =
+        !activeProject ||
+        isDefaultProject(activeProject) ||
+        state.projects.length <= 1;
+
+      deleteButton.title = isDefaultProject(activeProject)
+        ? "The General Content project cannot be deleted."
+        : state.projects.length <= 1
+          ? "You need another project before deleting this one."
+          : "Delete the selected project";
+    }
   }
 
   async function loadProjects() {
@@ -128,7 +155,7 @@
 
       if (!currentProjectExists) {
         const defaultProject = state.projects.find(
-          (project) => project.name === "General Content"
+          (project) => isDefaultProject(project)
         );
 
         state.activeProjectId = defaultProject
@@ -158,33 +185,196 @@
     button.disabled = true;
     button.textContent = "Creating...";
 
-    const { data, error } = await state.client
-      .from(PROJECTS_TABLE)
-      .insert({
-        name,
-        description: description || null
-      })
-      .select()
-      .single();
+    try {
+      const { data, error } = await state.client
+        .from(PROJECTS_TABLE)
+        .insert({
+          name,
+          description: description || null
+        })
+        .select()
+        .single();
 
-    button.disabled = false;
-    button.textContent = "Create project";
+      if (error) {
+        setProjectMessage(error.message, true);
+        return;
+      }
 
-    if (error) {
-      setProjectMessage(error.message, true);
+      state.projects.push(data);
+      state.activeProjectId = data.id;
+
+      updateProjectSelector();
+
+      $("projectForm").reset();
+      $("projectDialog").close();
+
+      await loadItems();
+
+    } catch (error) {
+      console.error("Project creation error:", error);
+      setProjectMessage(error.message || "Unable to create the project.", true);
+
+    } finally {
+      button.disabled = false;
+      button.textContent = "Create project";
+    }
+  }
+
+  /* =====================================
+     DELETE PROJECT AND MOVE CONTENT
+  ===================================== */
+
+  function openDeleteProjectDialog() {
+    const project = getActiveProject();
+
+    if (!project) return;
+
+    if (isDefaultProject(project) || state.projects.length <= 1) {
       return;
     }
 
-    state.projects.push(data);
-    state.activeProjectId = data.id;
+    const destinationSelect = $("destinationProject");
 
-    updateProjectSelector();
+    const otherProjects = state.projects.filter(
+      (item) => String(item.id) !== String(project.id)
+    );
 
-    $("projectForm").reset();
-    $("projectDialog").close();
+    destinationSelect.innerHTML =
+      '<option value="">Select a destination project</option>' +
+      otherProjects.map((item) =>
+        `<option value="${escapeHtml(item.id)}">${escapeHtml(item.name)}</option>`
+      ).join("");
 
-    await loadItems();
+    $("deleteProjectMessage").textContent =
+      `You are about to delete "${project.name}". This project currently contains ${state.items.length} content item(s). Choose another project to receive its content before deletion.`;
+
+    $("deleteProjectFormMessage").textContent = "";
+    $("deleteProjectFormMessage").classList.remove("is-error");
+
+    $("confirmDeleteProject").disabled = false;
+    $("confirmDeleteProject").textContent = "Move content & delete project";
+
+    $("deleteProjectDialog").showModal();
   }
+
+  async function deleteActiveProject(event) {
+    event.preventDefault();
+
+    const project = getActiveProject();
+    const destinationId = $("destinationProject").value;
+
+    if (!project || !destinationId) {
+      $("deleteProjectFormMessage").textContent =
+        "Please select a destination project.";
+
+      return;
+    }
+
+    if (
+      String(project.id) === String(destinationId) ||
+      isDefaultProject(project) ||
+      state.projects.length <= 1
+    ) {
+      $("deleteProjectFormMessage").textContent =
+        "This project cannot be deleted with the selected settings.";
+
+      return;
+    }
+
+    const destinationProject = state.projects.find(
+      (item) => String(item.id) === String(destinationId)
+    );
+
+    if (!destinationProject) {
+      $("deleteProjectFormMessage").textContent =
+        "The destination project could not be found. Please refresh and try again.";
+
+      return;
+    }
+
+    const button = $("confirmDeleteProject");
+
+    button.disabled = true;
+    button.textContent = "Moving content...";
+
+    $("deleteProjectFormMessage").textContent = "";
+    $("deleteProjectFormMessage").classList.remove("is-error");
+
+    try {
+      // STEP 1: Move all content to the destination project.
+      const { error: moveError } = await state.client
+        .from(TABLE)
+        .update({
+          project_id: Number(destinationId),
+          updated_at: new Date().toISOString()
+        })
+        .eq("project_id", project.id);
+
+      if (moveError) {
+        throw new Error(
+          `Unable to move the content. The project was not deleted. ${moveError.message}`
+        );
+      }
+
+      button.textContent = "Deleting project...";
+
+      // STEP 2: Delete the original project after the move succeeds.
+      const { data: deletedProjects, error: deleteError } =
+        await state.client
+          .from(PROJECTS_TABLE)
+          .delete()
+          .eq("id", project.id)
+          .select("id");
+
+      if (deleteError) {
+        throw new Error(
+          `The content may have been moved successfully, but the project could not be deleted. ${deleteError.message}`
+        );
+      }
+
+      if (!deletedProjects || deletedProjects.length === 0) {
+        throw new Error(
+          "The content may have been moved, but the project was not deleted. Please refresh and try again."
+        );
+      }
+
+      // STEP 3: Switch to the destination project.
+      state.activeProjectId = destinationProject.id;
+
+      $("deleteProjectDialog").close();
+
+      // STEP 4: Refresh the project selector and calendar.
+      const projectsLoaded = await loadProjects();
+
+      if (projectsLoaded) {
+        await loadItems();
+      }
+
+    } catch (error) {
+      console.error("Project deletion error:", error);
+
+      $("deleteProjectFormMessage").textContent =
+        error.message || "An unexpected error occurred.";
+
+      $("deleteProjectFormMessage").classList.add("is-error");
+
+      // Refresh in case the content move succeeded
+      // but project deletion failed.
+      const projectsLoaded = await loadProjects();
+
+      if (projectsLoaded) {
+        await loadItems();
+      }
+
+    } finally {
+      button.disabled = false;
+      button.textContent = "Move content & delete project";
+    }
+  }
+
+  /* =====================================
+     CONTENT FILTERING AND DISPLAY
+  ===================================== */
 
   function visibleItems() {
     return state.items.filter((item) => {
@@ -489,6 +679,10 @@
     renderUpcoming(state.items);
   }
 
+  /* =====================================
+     CONTENT DIALOGS
+  ===================================== */
+
   function openNewContent(date = dateKey(state.cursor)) {
     if (!state.activeProjectId) return;
 
@@ -561,34 +755,42 @@
     button.disabled = true;
     button.textContent = "Saving...";
 
-    let result;
+    try {
+      let result;
 
-    if (id) {
-      result = await state.client
-        .from(TABLE)
-        .update(payload)
-        .eq("id", id)
-        .eq("project_id", state.activeProjectId)
-        .select()
-        .single();
-    } else {
-      result = await state.client
-        .from(TABLE)
-        .insert(payload)
-        .select()
-        .single();
+      if (id) {
+        result = await state.client
+          .from(TABLE)
+          .update(payload)
+          .eq("id", id)
+          .eq("project_id", state.activeProjectId)
+          .select()
+          .single();
+      } else {
+        result = await state.client
+          .from(TABLE)
+          .insert(payload)
+          .select()
+          .single();
+      }
+
+      if (result.error) {
+        $("formMessage").textContent = result.error.message;
+        return;
+      }
+
+      $("contentDialog").close();
+      await loadItems();
+
+    } catch (error) {
+      console.error("Content saving error:", error);
+      $("formMessage").textContent =
+        error.message || "Unable to save content.";
+
+    } finally {
+      button.disabled = false;
+      button.textContent = "Save content";
     }
-
-    button.disabled = false;
-    button.textContent = "Save content";
-
-    if (result.error) {
-      $("formMessage").textContent = result.error.message;
-      return;
-    }
-
-    $("contentDialog").close();
-    await loadItems();
   }
 
   async function deleteContent() {
@@ -615,6 +817,10 @@
     await loadItems();
   }
 
+  /* =====================================
+     CALENDAR NAVIGATION
+  ===================================== */
+
   function changePeriod(amount) {
     if (state.view === "week") {
       state.cursor.setDate(state.cursor.getDate() + amount * 7);
@@ -627,6 +833,10 @@
     render();
   }
 
+  /* =====================================
+     EVENT LISTENERS
+  ===================================== */
+
   function bindEvents() {
     $("addProject").addEventListener("click", () => {
       $("projectForm").reset();
@@ -635,6 +845,24 @@
     });
 
     $("projectForm").addEventListener("submit", createProject);
+
+    // Project deletion controls.
+    $("deleteProject").addEventListener(
+      "click",
+      openDeleteProjectDialog
+    );
+
+    $("deleteProjectForm").addEventListener(
+      "submit",
+      deleteActiveProject
+    );
+
+    document.querySelectorAll("[data-close-delete-project]")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          $("deleteProjectDialog").close();
+        });
+      });
 
     document.querySelectorAll("[data-close-project-dialog]")
       .forEach((button) => {
@@ -737,6 +965,10 @@
       }
     });
   }
+
+  /* =====================================
+     INITIALIZATION
+  ===================================== */
 
   async function init() {
     $("currentYear").textContent = new Date().getFullYear();
