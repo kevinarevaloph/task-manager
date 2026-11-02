@@ -50,7 +50,10 @@
       <h2>Projects</h2>
       <p>Organize your marketing content by project.</p>
     </div>
-    <button class="mc-primary" id="addProject" type="button">+ Add Project</button>
+<div class="mc-project-actions">
+  <button class="mc-primary" id="addProject" type="button">+ Add Project</button>
+  <button class="mc-danger" id="deleteProject" type="button">Delete Project</button>
+</div>
   </div>
 
   <div class="mc-project-selector">
@@ -194,6 +197,47 @@
   </form>
 </dialog>
 
+<dialog id="deleteProjectDialog" class="mc-dialog">
+  <form id="deleteProjectForm">
+    <button
+      type="button"
+      class="mc-dialog-close"
+      data-close-delete-project
+      aria-label="Close dialog"
+    >×</button>
+
+    <span class="mc-eyebrow">DELETE PROJECT</span>
+    <h2>Delete this project?</h2>
+
+    <p id="deleteProjectMessage">
+      Choose another project to receive the content before deleting this project.
+    </p>
+
+    <div class="mc-form-grid">
+      <label class="mc-field-wide" for="destinationProject">
+        Move existing content to *
+        <select id="destinationProject" required>
+          <option value="">Select a destination project</option>
+        </select>
+      </label>
+    </div>
+
+    <p id="deleteProjectFormMessage" class="mc-form-message" role="alert"></p>
+
+    <div class="mc-dialog-actions">
+      <span class="mc-dialog-spacer"></span>
+      <button
+        type="button"
+        class="mc-secondary"
+        data-close-delete-project
+      >Cancel</button>
+      <button type="submit" class="mc-danger" id="confirmDeleteProject">
+        Move content &amp; delete project
+      </button>
+    </div>
+  </form>
+</dialog>
+
   <dialog id="contentDialog" class="mc-dialog">
     <form id="contentForm">
       <button type="button" class="mc-dialog-close" data-close-dialog aria-label="Close dialog">×</button>
@@ -208,7 +252,7 @@
           <select id="contentType" required>
             <option value="social">Social media</option><option value="blog">Blog &amp; SEO</option>
             <option value="email">Email marketing</option><option value="website">Website content</option>
-            <option value="campaign">Campaign</option><option value="video">Video</option>
+            <option value="News Letter">News Letter</option><option value="video">Video</option>
             <option value="design">Marketing material</option><option value="other">Other</option>
           </select>
         </label>
