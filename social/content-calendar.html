@@ -273,12 +273,81 @@
         <label class="mc-field-wide" for="contentUrl">Content URL
           <input id="contentUrl" type="url" maxlength="1000" placeholder="https://...">
         </label>
-        <label class="mc-field-wide" for="contentBrief">Description / brief
-          <textarea id="contentBrief" rows="4" maxlength="10000" placeholder="Add the objective, key message, audience, or content brief..."></textarea>
-        </label>
-        <label class="mc-field-wide" for="contentNotes">Notes
-          <textarea id="contentNotes" rows="3" maxlength="5000" placeholder="Add reminders, feedback, or next steps..."></textarea>
-        </label>
+
+<div class="mc-field-wide mc-rich-field">
+  <label for="contentBrief">Description / brief</label>
+
+  <div
+    id="contentBrief"
+    class="mc-rich-editor"
+    contenteditable="true"
+    role="textbox"
+    aria-multiline="true"
+    aria-labelledby="contentBriefLabel"
+    data-placeholder="Add the objective, key message, audience, or content brief..."
+    data-maxlength="10000">
+  </div>
+
+  <span id="contentBriefLabel" class="mc-sr-only">
+    Description / brief
+  </span>
+
+  <p class="mc-editor-help">
+    You can paste screenshots directly using Ctrl + V.
+  </p>
+</div>
+
+
+<div class="mc-field-wide mc-attachments-field">
+  <label for="contentAttachments">Attachments</label>
+
+  <p class="mc-attachments-description">
+    Upload supporting documents, images, creative assets, or other files for this content.
+  </p>
+
+  <input
+    id="contentAttachments"
+    type="file"
+    multiple
+    aria-describedby="attachmentHelp"
+  >
+
+  <p id="attachmentHelp" class="mc-attachments-help">
+    Select multiple files. Maximum file size: 50 MB per file.
+    Click a filename to preview it or use Download to save it.
+  </p>
+
+  <div
+    id="contentAttachmentList"
+    class="mc-attachment-list"
+    aria-live="polite">
+  </div>
+</div>
+
+
+<div class="mc-field-wide mc-rich-field">
+  <label for="contentNotes">Notes</label>
+
+  <div
+    id="contentNotes"
+    class="mc-rich-editor"
+    contenteditable="true"
+    role="textbox"
+    aria-multiline="true"
+    aria-labelledby="contentNotesLabel"
+    data-placeholder="Add reminders, feedback, or next steps..."
+    data-maxlength="5000">
+  </div>
+
+  <span id="contentNotesLabel" class="mc-sr-only">
+    Notes
+  </span>
+
+  <p class="mc-editor-help">
+    You can paste screenshots directly using Ctrl + V.
+  </p>
+</div>
+
       </div>
       <p id="formMessage" class="mc-form-message" role="alert"></p>
       <div class="mc-dialog-actions">
